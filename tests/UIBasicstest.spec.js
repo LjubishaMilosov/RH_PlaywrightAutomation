@@ -17,3 +17,13 @@ test('Page Context Playwright test', async ({page})=>
     console.log(await page.title());
     await expect(page).toHaveTitle("Google")
 });   
+
+test('Page Context Playwright testCopy', async ({page})=> 
+{ 
+    // const context = await browser.newContext();
+    // const page = await context.newPage();
+    await page.goto("https://google.com");
+    //get title - assertion
+    console.log(await page.title());
+    await expect(page).toHaveTitle("Google")
+}); 
