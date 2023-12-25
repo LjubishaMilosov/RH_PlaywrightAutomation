@@ -34,6 +34,7 @@ test.only('UI Controls', async ({page}) =>
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     const userName = page.locator('input#username');
     const signIn =  page.locator('#signInBtn');
+    const documentLink = page.locator("[href*='documents-request']");
     const dropdown = page.locator('select.form-control');
     await dropdown.selectOption("consult");
     await page.locator(".radiotextsty").nth(1).click();
@@ -46,6 +47,7 @@ test.only('UI Controls', async ({page}) =>
     await expect(page.locator("#terms")).toBeChecked();
     await page.locator("#terms").uncheck();
     expect(await page.locator("#terms").isChecked()).toBeFalsy();
+    await expect(documentLink).toHaveAttribute("class", "blinkingText");
    
 
 });
