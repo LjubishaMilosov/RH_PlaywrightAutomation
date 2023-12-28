@@ -17,7 +17,11 @@ const config = {
   use:
     {
         browserName : 'webkit',
-        headless : false
+        headless : false, 
+        screenshot : 'on',
+        trace : 'retain-on-failure'
+      
+      
     },
 
 
