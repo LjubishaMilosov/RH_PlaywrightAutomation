@@ -1,47 +1,25 @@
 const { test, expect, request } = require("@playwright/test");
-const loginPayload = {
-  userEmail: "ljubisa.milosov@gmail.com",
-  userPassword: "Muirotanas24",
-};
-const orderPayLoad = {
-  orders: [{ country: "India", productOrderedId: "6581ca399fd99c85e8ee7f45" }],
-};
+const {ApiUtils} = require('./utils/APIUtils');
+const loginPayLoad = {
+    userEmail: "ljubisa.milosov@gmail.com",
+    userPassword: "Muirotanas24",
+  };
+  const orderPayLoad = {
+    orders: [{ country: "India", productOrderedId: "6581ca399fd99c85e8ee7f45" }],
+  };
 let token;
 let orderId;
-test.beforeAll(async () => {
-  //Login Api
+test.beforeAll(async () => 
+{
   const apiContext = await request.newContext();
-  const loginResponse = await apiContext.post(
-    "https://www.rahulshettyacademy.com/api/ecom/auth/login",
-    {
-      data: loginPayload,
-    }
-  );
-  expect(loginResponse.ok()).toBeTruthy();
-  const loginResponseJson = await loginResponse.json();
+  const apiUtils = new ApiUtils(apiContext, loginPayLoad);
+  apiUtils.createOrder(orderPayLoad);
 
-  token = loginResponseJson.token;
-  console.log(token);
 
-  //Order Api
-  const orderResponse = await apiContext.post(
-    "https://www.rahulshettyacademy.com/api/ecom/order/create-order",
-    {
-      data: orderPayLoad,
-      headers: {
-        Authorization: token,
-        "Content-Type": "application/json",
-      },
-    }
-  );
-  const orderResponseJson = await orderResponse.json();
-  console.log(orderResponseJson);
-  orderId = orderResponseJson.orders[0];
-});
-
-test.beforeEach(() => {});
 
 test("Place Order", async ({ page }) => {
+   const ApiUtils = new ApiUtils(apiContext,loginPayLoad);
+    const orderId = createOrder(orderPayLoad);
   page.addInitScript((value) => {
     window.localStorage.setItem("token", value);
   }, token);
@@ -117,4 +95,3 @@ test("Place Order", async ({ page }) => {
 });
 
 //Verify if order created is showing in history page
-//Precondition
