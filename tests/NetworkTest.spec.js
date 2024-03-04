@@ -5,6 +5,7 @@ const orderPayLoad = {orders: [{ country: "India", productOrderedId: "6581ca399f
 const fakePayLoadOrders = {data:[], message:"No Orders"};
 
 let response;
+
 test.beforeAll(async () => 
 {
   const apiContext = await request.newContext();
@@ -13,7 +14,7 @@ test.beforeAll(async () =>
 
 });
 
-test("Place Order", async ({ page }) => {
+test("Place the Order", async ({ page }) => {
   
   page.addInitScript((value) => {
     window.localStorage.setItem("token", value);
@@ -30,6 +31,7 @@ test("Place Order", async ({ page }) => {
       response, body, 
     });
   });
+  
   await page.locator("button[routerlink*='myorders']").click();
   await page.waitForResponse("https://rahulshettyacademy.com/api/ecom/order/get-orders-for-customer/*");
   
