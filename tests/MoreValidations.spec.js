@@ -36,3 +36,8 @@ test.only("Sreenshot and visual comparison validations", async({page}) =>{
     await expect(page.locator("#displayed-text")).toBeHidden();
 
 });
+
+test.only('visual', async({page}) =>
+{await page.goto("https://google.com");
+expect(await page.screenshot()).toMatchSnapshot('landing.png');
+});
