@@ -13,21 +13,37 @@ const config = {
     },
 
   repoter: 'html',
+  projects:
+  [
+    {name:'safari',
   
-  use:
-    {
-        browserName : 'chromium',
+    use:{
+        browserName : 'webkit',
         headless : true, 
-        screenshot : 'on',
+        screenshot : 'off',
         trace : 'retain-on-failure'
+    
+    }},
+    {name:'chrome',
+    
+    use:{
+        browserName : 'chromium',
+        headless : false, 
+        screenshot : 'on',
+        ignoreHTTPSErrors : true,
+        permissions:['geolocation'],
+        trace : 'retain-on-failure',
+       // viewport: { width: 720, height: 720 }
+       //...devices['iPhone11']
       
-      
-    },
+    }
+    }
 
 
-};
+]};
 
 module.exports = config;
+
 
 
 
